@@ -1,0 +1,505 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listcts = (List<Demo.Models.TongCTS>)ViewBag.ListCTS;
+
+    var ctbc = (List<Demo.Models.Model.ChiTietDanhMuc>)Session["baocao"];
+}
+<h3 class="text-center">Phòng thẩm định</h3>
+
+@using (Html.BeginForm("Index", "PhongTD", FormMethod.Get))
+{
+
+    <div class="row container-fluid">
+
+        <div class="col-md-2">   @Html.DropDownList("toweek", (IEnumerable<SelectListItem>)ViewBag.toweek, "Từ tuần", new { @class = "form-control" })</div>
+        <div class="col-md-2">    @Html.DropDownList("fromweek", (IEnumerable<SelectListItem>)ViewBag.fromweek, "Đến tuần", new { @class = "form-control" })</div>
+        <div class="col-md-4">  <button type="submit" value="Search" class="btn btn-primary text-center">Tìm kiếm</button></div>
+
+
+
+    </div>
+}
+
+
+
+@if (Session["baocao"] != null)
+{
+
+
+    @section scripts{
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                        <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Tổng CKS", @foreach (var e in ctbc){<text> @e.TongCapCTS,'@e.TongCapCTS',</text>}],
+                ["KDTT",@foreach (var e in ctbc){<text> @e.KTTTTD,'@e.KTTTTD',</text>}],
+                ["CNHCM", @foreach (var e in ctbc){<text>@e.CNTPCM,'@e.CNTPCM',</text>}]
+                ]);
+
+
+            var options = {
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('cks'));
+
+            chart.draw(data, options);
+
+        };
+
+
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+                var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                              <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["KD Hà Nội", @foreach (var e in ctbc){<text> @e.KDHN,'@e.KDHN',</text>}],
+                ["KD TP.HCM",@foreach (var e in ctbc){<text> @e.KDTPHCM, '@e.KDTPHCM',</text>}],
+                ["Nhóm CO", @foreach (var e in ctbc){<text>@e.NhomCO,'@e.NhomCO',</text>}],
+                ["Nhóm HĐ", @foreach (var e in ctbc){<text>@e.NhomHD,'@e.NhomHD',</text>}]
+                ]);
+            var options = {
+
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('ctkdtt'));
+
+            chart.draw(data, options);
+
+        };
+
+
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+              var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Cấp mới", @foreach (var e in ctbc){<text> @e.CapMoi,'@e.CapMoi',</text>}],
+                ["Cấp lại",@foreach (var e in ctbc){<text> @e.CapLai,'@e.CapLai',</text>}],
+                ["Gia hạn", @foreach (var e in ctbc){<text>@e.GiaHan,'@e.GiaHan',</text>}],
+                ["Thu hồi", @foreach (var e in ctbc){<text>@e.ThuHoi,'@e.ThuHoi',</text>}],
+                ["Cấp bù", @foreach (var e in ctbc){<text>@e.CapBu,'@e.CapBu',</text>}],
+                ["Mở khóa", @foreach (var e in ctbc){<text>@e.MoKhoa,'@e.MoKhoa',</text>}]
+                ]);
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+            chart.draw(data, {
+                alwaysOutside: true,
+                height: 500,
+                is3d: true
+
+            });
+        }
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+              var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                       <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Cấp lỗi", @foreach (var e in ctbc){<text> @e.CapLoi,'@e.CapLoi',</text>}],
+                ["Ngoại giao",@foreach (var e in ctbc){<text> @e.NgoaiGiao,'@e.NgoaiGiao',</text>}],
+                ["Dùng thử", @foreach (var e in ctbc){<text>@e.DungThu,'@e.DungThu',</text>}],
+                ["Khôi phục", @foreach (var e in ctbc){<text>@e.KhoiPhuc,'@e.KhoiPhuc',</text>}],
+                ["Tạm dừng", @foreach (var e in ctbc){<text>@e.TamDung,'@e.TamDung',</text>}]
+
+                ]);
+
+
+                         var options = {
+                             height: 500,
+                             is3d: true
+                     };
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+                     chart.draw(data, options);
+        }
+        </script>
+
+    }
+
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Tổng cấp CKS
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6 offset-2">
+                                <div id="cks" style="width: 1000px; height: 500px;">
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div id="columnchart_material1" style="height:500px">
+                                    </div>
+                                </div>*@
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Chi tiết kinh doanh trực tiếp
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6 offset-2">
+                                <div id="ctkdtt" style="width: 1000px; height: 500px;">
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div id="columnchart_material1" style="height:500px">
+                                    </div>
+                                </div>*@
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Chi tiết cấp CKS
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6">
+                                <div id="chart_div2" style=" height: 500px;">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="chart_div" style="height:500px">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+}
+else
+{
+    @section scripts{
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                        <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Tổng CKS", @foreach (var e in listcts){<text> @e.Tong,'@e.Tong',</text>}],
+                ["KDTT",@foreach (var e in listcts){<text> @e.KDTT,'@e.KDTT',</text>}],
+                ["CNHCM", @foreach (var e in listcts){<text>@e.CNHCM,'@e.CNHCM',</text>}]
+                ]);
+
+
+            var options = {
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('cks'));
+
+            chart.draw(data, options);
+
+        };
+
+
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+                var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                              <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["KD Hà Nội", @foreach (var e in listcts){<text> @e.KDHN,'@e.KDHN',</text>}],
+                ["KD TP.HCM",@foreach (var e in listcts){<text> @e.KDHCM, '@e.KDHCM',</text>}],
+                ["Nhóm CO", @foreach (var e in listcts){<text>@e.NhomCO,'@e.NhomCO',</text>}],
+                ["Nhóm HĐ", @foreach (var e in listcts){<text>@e.NhomHD,'@e.NhomHD',</text>}]
+                ]);
+            var options = {
+
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('ctkdtt'));
+
+            chart.draw(data, options);
+
+        };
+
+
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+              var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Cấp mới", @foreach (var e in listcts){<text> @e.CapMoi,'@e.CapMoi',</text>}],
+                ["Cấp lại",@foreach (var e in listcts){<text> @e.CapLai,'@e.CapLai',</text>}],
+                ["Gia hạn", @foreach (var e in listcts){<text>@e.GiaHan,'@e.GiaHan',</text>}],
+                ["Thu hồi", @foreach (var e in listcts){<text>@e.ThuHoi,'@e.ThuHoi',</text>}],
+                ["Cấp bù", @foreach (var e in listcts){<text>@e.CapBu,'@e.CapBu',</text>}],
+                ["Mở khóa", @foreach (var e in listcts){<text>@e.MoKhoa,'@e.MoKhoa',</text>}]
+                ]);
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+            chart.draw(data, {
+                alwaysOutside: true,
+                height: 500,
+                is3d: true
+
+            });
+        }
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+              var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                       <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Cấp lỗi", @foreach (var e in listcts){<text> @e.CapLoi,'@e.CapLoi',</text>}],
+                ["Ngoại giao",@foreach (var e in listcts){<text> @e.NgoaiGiao,'@e.NgoaiGiao',</text>}],
+                ["Dùng thử", @foreach (var e in listcts){<text>@e.DungThu,'@e.DungThu',</text>}],
+                ["Khôi phục", @foreach (var e in listcts){<text>@e.KhoiPhuc,'@e.KhoiPhuc',</text>}],
+                ["Tạm dừng", @foreach (var e in listcts){<text>@e.TamDung,'@e.TamDung',</text>}]
+
+                ]);
+
+
+                         var options = {
+                             height: 500,
+                             is3d: true
+                     };
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+                     chart.draw(data, options);
+        }
+        </script>
+
+
+
+
+    }
+
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Tổng cấp CKS
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6 offset-2">
+                                <div id="cks" style="width: 1000px; height: 500px;">
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div id="columnchart_material1" style="height:500px">
+                                    </div>
+                                </div>*@
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Chi tiết kinh doanh trực tiếp
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6 offset-2">
+                                <div id="ctkdtt" style="width: 1000px; height: 500px;">
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div id="columnchart_material1" style="height:500px">
+                                    </div>
+                                </div>*@
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Chi tiết cấp CKS
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6">
+                                <div id="chart_div2" style=" height: 500px;">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="chart_div" style="height:500px">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

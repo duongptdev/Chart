@@ -1,0 +1,259 @@
+﻿
+@{
+    ViewBag.Title = "Einvoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listcts = (List<Demo.Models.TongCTS>)ViewBag.ListCTS;
+
+    var ctbc = (List<Demo.Models.Model.ChiTietDanhMuc>)Session["baocao"];
+}
+
+<h3 class="text-center">Phòng thẩm định</h3>
+@if (Session["baocao"] != null)
+{
+    @section scripts{
+        @*e-invoice*@
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+         google.charts.setOnLoadCallback(drawChart);
+
+         function drawChart(){
+                var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                          <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["COVAN", @foreach (var e in ctbc){<text> @e.Co_van,'@e.Co_van',</text>}],
+                ["EBH",@foreach (var e in ctbc){<text> @e.EBH,'@e.EBH',</text>}]
+             ]);
+             var chart = new google.visualization.ColumnChart(document.getElementById('covan'));
+                chart.draw(data);
+            };
+        </script>
+
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart']});
+         google.charts.setOnLoadCallback(drawChart);
+
+         function drawChart()
+                {
+                      var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                     <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Tổng e-invoice", @foreach (var e in ctbc){<text> @e.TongCapCTS,'@e.TongCapCTS',</text>}]
+                ]);
+             var chart = new google.visualization.ColumnChart(document.getElementById('einvoice1'));
+             var options = {
+                 
+                 vAxis: { minValue: 0 }
+             };
+             chart.draw(data,options);
+                }
+        </script>
+
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart']});
+         google.charts.setOnLoadCallback(drawChart);
+
+         function drawChart()
+                {
+                      var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                                  <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["KD Hà Nội",@foreach (var e in ctbc){<text> @e.KDHNeinvoice,'@e.KDHNeinvoice',</text>}],
+                ["Nhóm HĐ", @foreach (var e in ctbc){<text>@e.NhomHDeinvoice,'@e.NhomHDeinvoice',</text>}],
+                ["TPHCM", @foreach (var e in ctbc){<text>@e.TPHCM,'@e.TPHCM',</text>}]
+                ]);
+             var formatter = new google.visualization.NumberFormat({ pattern: '###,###' });
+             formatter.format(data, 1);
+             var chart = new google.visualization.ColumnChart(document.getElementById('einvoice'));
+
+             chart.draw(data);
+                }
+        </script>
+    }
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        E-invoice
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container ">
+                            <div class="row">
+                                <div class="col-md-6">       <div id="einvoice1" style="height:500px"></div></div>
+                                <div class="col-md-6"> <div id="einvoice" style="height:500px"></div></div>
+                            </div>
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Co-van, EBH
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container">
+                            <div class="col-md-6 offset-2">       <div id="covan" style="height:500px"></div></div>
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+}
+else
+{
+    @section scripts{
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+         google.charts.setOnLoadCallback(drawChart);
+
+         function drawChart(){
+                var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                          <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["COVAN", @foreach (var e in listcts){<text> @e.Covantong,'@e.Covantong',</text>}],
+                ["EBH",@foreach (var e in listcts){<text> @e.EBHtong,'@e.EBHtong',</text>}]
+             ]);
+             var chart = new google.visualization.ColumnChart(document.getElementById('covan'));
+                chart.draw(data);
+            };
+        </script>
+
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart']});
+         google.charts.setOnLoadCallback(drawChart);
+
+         function drawChart()
+                {
+                      var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                     <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Tổng e-invoice", @foreach (var e in listcts){<text> @e.Tong,'@e.Tong',</text>}]
+                ]);
+             var chart = new google.visualization.ColumnChart(document.getElementById('einvoice1'));
+             var options = {
+
+                 vAxis: { minValue: 0 }
+             };
+             chart.draw(data,options);
+                }
+        </script>
+
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart']});
+         google.charts.setOnLoadCallback(drawChart);
+
+         function drawChart()
+                {
+                      var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                                  <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["KD Hà Nội",@foreach (var e in listcts){<text> @e.KDHNEinvoice,'@e.KDHNEinvoice',</text>}],
+                ["Nhóm HĐ", @foreach (var e in listcts){<text>@e.NhomHDEinvoice,'@e.NhomHDEinvoice',</text>}],
+                ["TPHCM", @foreach (var e in listcts){<text>@e.TPHCMEinvoice,'@e.TPHCMEinvoice',</text>}]
+                ]);
+             var formatter = new google.visualization.NumberFormat({ pattern: '###,###' });
+             formatter.format(data, 1);
+             var chart = new google.visualization.ColumnChart(document.getElementById('einvoice'));
+
+             chart.draw(data);
+                }
+        </script>
+    }
+
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        E-invoice
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container">
+                            <div class="row">
+                                <div class="col-md-6">       <div id="einvoice1" style="height:500px"></div></div>
+                                <div class="col-md-6"><div id="einvoice" style="height:500px"></div></div>
+                            </div>
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Co-van, EBH
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container">
+                            <div class="col-md-6 offset-2">       <div id="covan" style="height:500px"></div></div>
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

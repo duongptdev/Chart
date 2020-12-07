@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Báo cáo</title>
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .active1 {
+            border-bottom: 3px solid black
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar mt-2  bg-white navbar-expand-lg " style="margin-bottom:50px;font-size:20px;">
+        <div class="navbar-nav d-flex justify-content-center">
+            <div class="dropdown">
+                <button class="dropdown-toggle btn btn-primary " id="dropdownMenuButton" data-toggle="dropdown">Phòng thẩm định</button>
+                <div class="dropdown-menu">
+                    <a class="tab1 dropdown-item" href="/PhongTD/Index" style="color:black">Chữ ký số</a>
+                    <hr />
+                    <a class="tab2 dropdown-item" href="/PhongTD/Einvoice" style="color:black">CA2-Einvoice</a>
+                    <hr />
+                    <a class="tab3 dropdown-item" href="/PhongTD/Nhaphs" style="color:black">Nhập hồ sơ</a>
+                </div>
+
+            </div>
+
+            <a class="tab11 btn btn-primary ml-2 " href="/PhongHT/Index" style="">Phòng hỗ trợ</a>
+            <a class="tab12 btn btn-primary ml-2" href="/PhongKT/Index" style="">Phòng kế toán</a>
+            <a class="tab10 btn btn-primary ml-2" href="/SoSanh/Index" style="">So sánh chứng thư số cấp</a>
+            <a class="tab10 btn btn-primary ml-2" href="/Data/Index" style="">Danh sách dữ liệu báo cáo</a>
+
+
+        </div>
+
+
+
+
+
+
+       
+       
+    </nav>
+    <div class="body-content">
+        @RenderBody()
+    </div>
+    <script>
+        $('.menu a').on('click', function (e) {
+            $(".menu a").removeClass('active1');
+            sessionStorage.setItem('navbarTabActive', this.className);
+        });
+    </script>
+    <script>
+        $(function () {
+            let tabActive = sessionStorage.getItem('navbarTabActive');
+            $('.' + tabActive).addClass('active1');
+        });
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("scripts1", required: false)
+</body>
+</html>

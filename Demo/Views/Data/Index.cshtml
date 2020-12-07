@@ -1,0 +1,669 @@
+﻿@model PagedList.IPagedList<ChiTietDanhMuc>
+@using Demo.Models.Model;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@using (Html.BeginForm("Index", "Data", FormMethod.Get))
+{
+    <div class="row container-fluid">
+        <div class="col-md-2"> Từ tuần: @Html.TextBox("toweek", (int?)ViewBag.Toweek, new { @class = "form-control" }) </div>
+        <div class="col-md-2"> Đến tuần:   @Html.TextBox("fromweek", (int?)ViewBag.Fomweek, new { @class = "form-control" })</div>
+        <div class="col-md-6"><button type="submit" value="Search" class="mt-4 btn btn-primary">Tìm kiếm</button></div>
+    </div>
+}
+<div class="table-responsive container-fluid">
+    <div class="d-flex justify-content-end">
+        @Html.ActionLink("Thêm mới", "Create", "", new { @class = "btn btn-success" })
+    </div>
+    <h3>Số liệu báo cáo tuần</h3>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Tổng chứng thư số</a>
+            <a class="nav-link" id="ptd-tab" data-toggle="tab" href="#ptd" role="tab" aria-controls="ptd" aria-selected="false">Kinh doanh trực tiếp</a>
+            <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Chi nhánh TP.HCM</a>
+            <a class="nav-link" id="einvoice-tab" data-toggle="tab" href="#einvoice" role="tab" aria-controls="einvoice" aria-selected="false">E-invoice</a>
+            <a class="nav-link" id="covan-tab" data-toggle="tab" href="#covan" role="tab" aria-controls="covan" aria-selected="false">Co-van</a>
+            <a class="nav-link" id="ebh-tab" data-toggle="tab" href="#ebh" role="tab" aria-controls="ebh" aria-selected="false">EBH</a>
+            <a class="nav-link" id="nhaphs-tab" data-toggle="tab" href="#nhaphs" role="tab" aria-controls="nhaphs" aria-selected="false">Nhập HS</a>
+            <a class="nav-link" id="cpn-tab" data-toggle="tab" href="#cpn" role="tab" aria-controls="cpn" aria-selected="false">Chuyển phát nhanh</a>
+            <a class="nav-link" id="pht-tab" data-toggle="tab" href="#pht" role="tab" aria-controls="pht" aria-selected="false">Phòng hỗ trợ</a>
+            <a class="nav-link" id="pkt-tab" data-toggle="tab" href="#pkt" role="tab" aria-controls="pkt" aria-selected="false">Phòng kế toán</a>   
+            <a class="nav-link" id="ds-tab" data-toggle="tab" href="#ds" role="tab" aria-controls="ds" aria-selected="false">Đối soát</a>
+            <a class="nav-link" id="ht-tab" data-toggle="tab" href="#ht" role="tab" aria-controls="ht" aria-selected="false">Hệ thống</a>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+                        <th scope="col">Tổng cấp CTS</th>
+                        <th scope="col">Cấp mới</th>
+                        <th scope="col">Gia hạn</th>
+                        <th scope="col">Cấp lại</th>
+                        <th scope="col">Thu hồi</th>
+                        <th scope="col">Cấp bù</th>
+                        <th scope="col">Cấp lỗi</th>
+                        <th scope="col">Ngoại giao</th>
+                        <th scope="col">Dùng thử</th>
+                        <th scope="col">Mở khóa</th>
+                        <th scope="col">Khôi phục</th>
+                        <th scope="col">Tạm dừng</th>
+
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+                                <td>@item.TongCapCTS</td>
+                                <td>@item.CapMoi</td>
+                                <td>@item.GiaHan</td>
+                                <td>@item.CapLai</td>
+                                <td>@item.ThuHoi</td>
+                                <td>@item.CapBu</td>
+                                <td>@item.CapLoi</td>
+                                <td>@item.NgoaiGiao</td>
+                                <td>@item.DungThu</td>
+                                <td>@item.MoKhoa</td>
+                                <td>@item.KhoiPhuc</td>
+                                <td>@item.TamDung</td>
+
+
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+      
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Tổng</th>
+
+
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+
+                                <td>@item.CNTPCM</td>
+
+
+
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+       
+        <div class="tab-pane fade" id="einvoice" role="tabpanel" aria-labelledby="einvoice-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Tổng</th>
+                        <th scope="col">Kinh doanh Hà Nội</th>
+                        <th scope="col">Nhóm hóa đơn </th>
+                        <th scope="col">TP.HCM</th>
+
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+
+                                <td>@item.E_Invoice</td>
+                                <td>@item.KDHNeinvoice</td>
+                                <td>@item.NhomHDeinvoice</td>
+                                <td>@item.TPHCM</td>
+
+
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="covan" role="tabpanel" aria-labelledby="covan-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Tổng</th>
+
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+                                <td>@item.Co_van</td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="ebh" role="tabpanel" aria-labelledby="ebh-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Tổng </th>
+
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+
+                                <td>@item.EBH</td>
+
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nhaphs" role="tabpanel" aria-labelledby="nhaphs-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Tổng</th>
+
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+
+                                <td>@item.NhapHS</td>
+
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="cpn" role="tabpanel" aria-labelledby="cpn-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Tổng</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+
+                                <td>@(string.Format("{0:#,##0}", item.CPN)) đồng</td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pkt" role="tabpanel" aria-labelledby="pkt-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Doanh thu Hà Nội</th>
+                        <th scope="col">Doanh thu CNHCM</th>
+                        <th scope="col">Công nợ Hà Nội</th>
+                        <th scope="col">Công nợ CNHCM</th>
+               
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Delete", "Data", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+                                <td>@(item.DoanhThuHN.HasValue ? item.DoanhThuHN.Value.ToString("N0") : "") đồng</td>
+                                <td>@(string.Format("{0:#,##0}", item.DoanhThuCNHCM)) đồng</td>
+                                <td>@(string.Format("{0:#,##0}", item.CongNoHN)) đồng</td>
+                                <td>@(string.Format("{0:#,##0}", item.CongNoCNHCM)) đồng</td>
+            
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pht" role="tabpanel" aria-labelledby="pht-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+                        <th scope="col">Tổng giao dịch</th>
+                        <th scope="col">GD cao nhất</th>
+                        <th scope="col">GD thấp nhất</th>
+                        <th scope="col">Thuế</th>
+                        <th scope="col">Hóa đơn</th>
+                        <th scope="col">Co-van</th>
+                        <th scope="col">Hải quan</th>
+                        <th scope="col">EBH</th>
+                        <th scope="col">Giao dịch khác</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Xóa", "Delete", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+                                <th>@item.TongHT</th>
+                                <th>@item.CBCNHT</th>
+                                <th>@item.CBTNHT</th>
+                                <th>@item.ThueHT</th>
+                                <th>@item.HoaDonHT</th>
+                                <th>@item.Co_VanHT</th>
+                                <th>@item.HaiQuanHT</th>
+                                <th>@item.EBHHT</th>
+                                <th>@item.GDKHT</th>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="ptd" role="tabpanel" aria-labelledby="ptd-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+
+                        <th scope="col">Kinh doanh trực tiếp</th>
+                        <th scope="col">Nhóm CO</th>
+                        <th scope="col">Nhóm HĐ</th>
+                        <th scope="col">Kinh doanh Hà Nội</th>
+                        <th scope="col">Kinh doanh TP.HCM</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Xóa", "Delete", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+
+                                <td>@item.KTTTTD</td>
+                                <td>@item.NhomCO</td>
+                                <td>@item.NhomHD</td>
+                                <td>@item.KDHN</td>
+                                <td>@item.KDTPHCM</td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="ds" role="tabpanel" aria-labelledby="ds-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+                        <th scope="col">Chữ ký số</th>
+                        <th scope="col">E-invoice</th>
+                        <th scope="col">EBH</th>       
+                        <th scope="col">Co-van</th>
+                        <th scope="col">Mở khóa</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Xóa", "Delete", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+                                <th>@item.CKSDoiSoat</th>
+                                <th>@item.E_invoiceDoiSoat</th>
+                                <th>@item.EBHDoiSoat</th>
+                                <th>@item.Co_vanDoiSoat</th>
+                                <th>@item.MoKhoaDoiSoat</th>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="ht" role="tabpanel" aria-labelledby="ht-tab">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tuần</th>
+                        <th scope="col">Chữ ký số</th>
+                        <th scope="col">E-invoice</th>
+                        <th scope="col">EBH</th>
+                        <th scope="col">Co-van</th>
+                        <th scope="col">Mở khóa</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Xóa", "Delete", new { id = item.ID }))
+                        {
+                            <tr>
+                                <th>@item.Tuan</th>
+                                <th>@item.CKSHeThong</th>
+                                <th>@item.E_invoiceHeThong</th>
+                                <th>@item.EBHHeThong</th>
+                                <td>@item.Co_vanHeThong</td>
+                                <td>@item.MoKhoaHeThong</td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-primary mb-1" })
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">Xóa</button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    Bạn có thực sự muốn xóa
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+                                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+</div>

@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listpkt = (List<Demo.Models.Model.PhongKeToan>)ViewBag.ListPKT;
+    var ctbc = (List<Demo.Models.Model.ChiTietDanhMuc>)Session["baocao"];
+}
+<h3 class="text-center">Phòng kế toán</h3>
+@if (Session["baocao"] != null)
+{
+    @section scripts{
+
+
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+              var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Doanh thu HN", @foreach (var e in ctbc){<text> @e.DoanhThuHN, '@e.DoanhThuHN',</text>}],
+                ["Doanh thu HCM",@foreach (var e in ctbc){<text> @e.DoanhThuCNHCM,'@e.DoanhThuCNHCM',</text>}]
+                ]);
+            var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs'));
+                chart.draw(data);
+            };
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+           var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Công nơ HN", @foreach (var e in ctbc){<text> @e.CongNoHN,'@e.CongNoHN',</text>}],
+                ["Công nợ HCM",@foreach (var e in ctbc){<text> @e.CongNoCNHCM,'@e.CongNoCNHCM',</text>}]
+                ]);
+            var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs1'));
+                chart.draw(data);
+            };
+        </script>
+    }
+        <div class="card">
+            <div class="card-header chart-grid__header">
+                <div class="row">
+                    <div class="col-md-7">Doanh thu</div>
+                    <div class="col-md-5">Công nợ</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- bar chart -->
+                <div class="row">
+                    <div class="col-md-6"> <div id="nhaphs" style=" height:500px;"></div></div>
+                    <div class="col-md-6"> <div id="nhaphs1" style=" height:500px;"></div></div>
+                </div>
+
+
+
+                <!-- //bar chart -->
+            </div>
+
+        </div>
+}
+else
+{
+    @section scripts{
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+              var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listpkt)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+            data.addRows([
+
+                ["Doanh thu HN", @foreach (var e in listpkt){<text> @e.DoanhThuHN, '@(e.DoanhThuHN.HasValue ? e.DoanhThuHN.Value.ToString("N0") : "")',</text>}],
+                ["Doanh thu HCM",@foreach (var e in listpkt){<text> @e.DoanhThuCNHCM,'@(e.DoanhThuCNHCM.HasValue ? e.DoanhThuCNHCM.Value.ToString("N0") : "") ',</text>}]
+                ]);
+            var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs'));
+                chart.draw(data);
+            };
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+           var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listpkt)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Công nơ HN", @foreach (var e in listpkt){<text> @e.CongNoHN,'@e.CongNoHN',</text>}],
+                ["Công nợ HCM",@foreach (var e in listpkt){<text> @e.CongNoCNHCM,'@e.CongNoCNHCM',</text>}]
+                ]);
+            var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs1'));
+                chart.draw(data);
+            };
+        </script>
+    }
+
+    <div class="card">
+     
+        <div class="card-body">
+            <!-- bar chart -->
+            <div class="row">
+                <div class="col-md-6"> <div id="nhaphs" style=" height:500px;"></div></div>
+                <div class="col-md-6"> <div id="nhaphs1" style=" height:500px;"></div></div>
+            </div> 
+            <div class="row">
+                    <div class="col-md-6 text-center"><h4>Biểu đồ doanh thu</h4> </div>
+                    <div class="col-md-6 text-center"><h4>Biểu đồ công nợ</h4> </div>
+            </div>
+        
+
+            <!-- //bar chart -->
+        </div>
+
+    </div>
+
+}
+
+
+
+

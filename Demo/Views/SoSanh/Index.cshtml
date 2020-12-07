@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ctbc = (List<Demo.Models.Chitietbaocao>)Session["data"];
+    var listcts = (List<Demo.Models.Chitietbaocao>)ViewBag.ListCTS;
+}
+@using (Html.BeginForm("Index", "SoSanh", FormMethod.Get))
+{
+
+    <div class="row container-fluid">
+
+        <div class="col-md-2">   @Html.DropDownList("tuan", (IEnumerable<SelectListItem>)ViewBag.tuan, "Tuần", new { @class = "form-control" })</div>
+
+        <div class="col-md-4">  <button type="submit" value="Search" class="btn btn-primary text-center">Tìm kiếm</button></div>
+
+
+
+    </div>
+}
+@if (Session["data"] != null)
+{
+    @section scripts{
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+             data.addColumn('number','Hệ thống');
+            data.addColumn({ role: 'annotation' });
+            data.addColumn('number', 'Đối soát');
+            data.addColumn({ role: 'annotation' });
+            data.addColumn('number', 'Thẩm định');
+            data.addColumn({ role: 'annotation' });
+
+                data.addRows([
+                ["Tổng CKS", @foreach (var e in Model){<text> @e.CKSHeThong,'@e.CKSHeThong', @e.CKSDoiSoat,'@e.CKSDoiSoat', @e.TongCapCTS,'@e.TongCapCTS',</text>}],
+                ["E-invoice",@foreach (var e in Model){<text> @e.E_invoiceHeThong,'@e.E_invoiceHeThong',@e.E_invoiceDoiSoat,'@e.E_invoiceDoiSoat',@e.E_Invoice,'@e.E_Invoice',</text>}],
+                ["Co-van", @foreach (var e in Model){<text>@e.Co_vanHeThong,'@e.Co_vanHeThong',@e.Co_vanDoiSoat,'@e.Co_vanDoiSoat',@e.Co_van,'@e.Co_van',</text>}],
+                ["Mở khóa", @foreach (var e in Model){<text>@e.MoKhoaHeThong,'@e.MoKhoaHeThong',@e.MoKhoaDoiSoat,'@e.MoKhoaDoiSoat',@e.MoKhoa,'@e.MoKhoa'</text>}],
+                ["Ebh", @foreach (var e in ctbc){<text>@e.EBHHeThong,'@e.EBHHeThong',@e.EBHDoiSoat,'@e.EBHDoiSoat',@e.EBH,'@e.EBH'</text>}]
+
+                ]);
+
+
+            var options = {
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('ss'));
+
+            chart.draw(data, options);
+
+        };
+
+
+        </script>
+    }
+
+ 
+
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Đối chiếu số liệu: Tuần @foreach (var e in ctbc){@e.Tuan}
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6 offset-2">
+                                <div id="ss" style="width: 1000px; height: 500px;">
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div id="columnchart_material1" style="height:500px">
+                                    </div>
+                                </div>*@
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+else
+{
+
+    @section scripts{
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+             data.addColumn('number','Hệ thống');
+            data.addColumn({ role: 'annotation' });
+            data.addColumn('number', 'Đối soát');
+            data.addColumn({ role: 'annotation' });
+            data.addColumn('number', 'Thẩm định');
+            data.addColumn({ role: 'annotation' });
+
+                data.addRows([
+                ["Tổng CKS", @foreach (var e in listcts){<text> @e.CKSHeThong,'@e.CKSHeThong', @e.CKSDoiSoat,'@e.CKSDoiSoat', @e.TongCapCTS,'@e.TongCapCTS'</text>}],
+                ["E-invoice",@foreach (var e in listcts){<text> @e.E_invoiceHeThong,'@e.E_invoiceHeThong',@e.E_invoiceDoiSoat,'@e.E_invoiceDoiSoat',@e.E_Invoice,'@e.E_Invoice'</text>}],
+                ["Co-van", @foreach (var e in listcts){<text>@e.Co_vanHeThong,'@e.Co_vanHeThong',@e.Co_vanDoiSoat,'@e.Co_vanDoiSoat',@e.Co_van,'@e.Co_van'</text>}],
+                ["Mở khóa", @foreach (var e in listcts){<text>@e.MoKhoaHeThong,'@e.MoKhoaHeThong',@e.MoKhoaDoiSoat,'@e.MoKhoaDoiSoat',@e.MoKhoa,'@e.MoKhoa'</text>}],
+                ["Ebh", @foreach (var e in listcts){<text>@e.EBHHeThong,'@e.EBHHeThong',@e.EBHDoiSoat,'@e.EBHDoiSoat',@e.EBH,'@e.EBH'</text>}]
+
+                ]);
+
+
+            var options = {
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('ss'));
+
+            chart.draw(data, options);
+
+        };
+
+
+        </script>
+    }
+
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Đối chiếu số liệu: Tuần @foreach (var e in listcts){@e.Tuan}
+
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container" class="row">
+                            <div class="col-md-6 offset-2">
+                                <div id="ss" style="width: 1000px; height: 500px;">
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div id="columnchart_material1" style="height:500px">
+                                    </div>
+                                </div>*@
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

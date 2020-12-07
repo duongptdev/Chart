@@ -1,0 +1,56 @@
+﻿@section scripts{
+    <script>
+        $('.menu2 a').on('click', function (e) {
+            $(".menu2 a").removeClass('active1');
+            sessionStorage.setItem('navbarTabActive1', this.className);
+        });
+    </script>
+    <script>
+        $(function () {
+            let tabActive = sessionStorage.getItem('navbarTabActive1');
+            $('.' + tabActive).addClass('active1');
+        });
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ["Element", "Density", { role: "style" }],
+                ["Copper", 8.94, "#b87333"],
+                ["Silver", 10.49, "silver"],
+                ["Gold", 19.30, "gold"],
+                ["Platinum", 21.45, "color: #e5e4e2"]
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                title: "Density of Precious Metals, in g/cm^3",
+                width: 600,
+                height: 400,
+                bar: { groupWidth: "95%" },
+                legend: { position: "none" },
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
+        }
+    </script>
+}
+
+<div class="navbar menu2 bg-white " style="margin-bottom:50px;margin-top:20px;font-size:15px;">
+    <a class="taba" href="/PhongTD/Index" style="color:black">Chữ ký số</a>
+    <a class="tabb" href="/PhongTD/Einvoice" style="color:black">E-invoice</a>
+    <a class="tabc" href="/PhongTD/Nhaphs" style="color:black">Nhập hồ sơ</a>
+</div>
+
+<div id="columnchart_values" style="width: 900px; height: 300px;"></div>

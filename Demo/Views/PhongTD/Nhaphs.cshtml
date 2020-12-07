@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "Nhaphs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listcts = (List<Demo.Models.TongCTS>)ViewBag.ListCTS;
+
+    var ctbc = (List<Demo.Models.Model.ChiTietDanhMuc>)Session["baocao"];
+}
+<h3 class="text-center">Phòng thẩm định</h3>
+@if (Session["baocao"] != null)
+{
+    @section scripts{
+        @*e-invoice*@
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart()
+{
+                 var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                        data.addRows([
+
+                            ["Nhập hồ sơ",@foreach (var e in ctbc){<text> @e.NhapHS,'@e.NhapHS',</text>}]
+
+                ]);
+                        var options = {
+
+                            vAxis: { minValue: 0 }
+                        };
+                        var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs'));
+
+                                        chart.draw(data,options);
+                                 };
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart()
+{
+               var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                         <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+
+                ["CPN",@foreach (var e in ctbc){<text> @e.CPN, '@e.CPN',</text>}]
+
+                ]);
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('cpn'));
+
+                                        chart.draw(data);
+                                 };
+        </script>
+    }
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Nhập hồ sơ
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container">
+                            <div class="col-md-6 offset-2">       <div id="nhaphs" style="height:500px"></div></div>
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Chuyển phát nhánh
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container">
+                            <div class="col-md-6 offset-2">       <div id="cpn" style="height:500px"></div></div>
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}
+else
+{
+    @section scripts{
+        @*e-invoice*@
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart()
+{
+                 var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                      <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                        data.addRows([
+
+                            ["Nhập hồ sơ",@foreach (var e in listcts){<text> @e.Nhaphstong,'@e.Nhaphstong',</text>}]
+
+                ]);
+                        var options = {
+
+                            vAxis: { minValue: 0 }
+                        };
+                        var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs'));
+
+                                        chart.draw(data,options);
+                                 };
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart()
+{
+               var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Loại');
+                @foreach (var x in listcts)
+                {
+                <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                         <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+
+                ["CPN",@foreach (var e in listcts){<text> @e.CPNtong, '@e.CPNtong',</text>}]
+
+                ]);
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('cpn'));
+
+                                        chart.draw(data);
+                                 };
+        </script>
+    }
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Nhập hồ sơ
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container">
+                            <div class="col-md-6 offset-2">       <div id="nhaphs" style="height:500px"></div></div>
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="chart">
+        <div class="row">
+            <div class="col-md-12 chart-grid">
+                <div class="card text-center card_border">
+                    <div class="card-header chart-grid__header">
+                        Chuyển phát nhánh
+                    </div>
+                    <div class="card-body">
+                        <!-- bar chart -->
+                        <div id="container">
+                            <div class="col-md-6 offset-2">       <div id="cpn" style="height:500px"></div></div>
+
+                        </div>
+                        <!-- //bar chart -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

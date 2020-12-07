@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listpht = (List<Demo.Models.PhongHoTro>)ViewBag.Listnhapht;
+    var ctbc = (List<Demo.Models.Model.ChiTietDanhMuc>)Session["baocao"];
+}
+<h3 class="text-center">Phòng hỗ trợ</h3>
+@if (Session["baocao"] != null)
+{
+    @section scripts{
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+               var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Loại');
+                @foreach (var x in ctbc)
+                {
+                <text>data.addColumn('number', ' Tuần @x.Tuan');</text>
+                <text>data.addColumn( { role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Tổng cấp", @foreach (var e in ctbc){<text> @e.TongHT,'@e.TongHT',</text>}],
+
+                ]);
+
+                var options = {
+                    width: 1000,
+                    vAxis: { minValue: 0 }
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs'));
+                chart.draw(data, options);
+            };
+
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+                google.charts.load("current", { packages: ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Loại');
+                    @foreach (var x in ctbc)
+                    {
+                    <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                          <text>data.addColumn( { role: 'annotation' } );</text>
+                    }
+                    data.addRows([
+                    ["GD cao nhất", @foreach (var e in ctbc){<text> @e.CBCNHT,'@e.CBCNHT',</text>}],
+                    ["GD thấp nhất", @foreach (var e in ctbc){<text> @e.CBTNHT,'@e.CBTNHT',</text>}],
+                    ["Thuế", @foreach (var e in ctbc){<text> @e.ThueHT,'@e.ThueHT',</text>}],
+                    ["Hóa đơn", @foreach (var e in ctbc){<text> @e.HoaDonHT,'@e.HoaDonHT',</text>}],
+                    ["Co-van", @foreach (var e in ctbc){<text> @e.Co_VanHT,'@e.Co_VanHT',</text>}],
+                    ["Hải quan", @foreach (var e in ctbc){<text> @e.HaiQuanHT,'@e.HaiQuanHT',</text>}],
+                    ["EBH", @foreach (var e in ctbc){<text> @e.EBHHT,'@e.EBHHT',</text>}],
+                    ["Giao dịch khác", @foreach (var e in ctbc){<text> @e.GDKHT,'@e.GDKHT',</text>}]
+
+                    ]);
+
+
+                    var options = {
+                       
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById("nhaphs1"));
+                    chart.draw(data, options);
+                }
+        </script>
+    }
+    <div class="card">
+        <div class="card-header chart-grid__header">
+            Tổng cấp 
+        </div>
+        <div class="card-body">
+            <!-- bar chart -->
+            <div class="col-md-6 offset-2">    <div id="nhaphs" style=" height:500px;"></div></div>
+
+
+            <!-- //bar chart -->
+        </div>
+
+    </div>
+    <div class="card">
+        <div class="card-header chart-grid__header">
+            Chi tiết cấp
+        </div>
+        <div class="card-body">
+            <!-- bar chart -->
+            <div class="col-md-12">    <div id="nhaphs1" style=" height:500px;"></div></div>
+
+
+            <!-- //bar chart -->
+        </div>
+
+    </div>
+}
+else
+{
+    @section scripts{
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+               var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Loại');
+                @foreach (var x in listpht)
+                {
+                <text>data.addColumn('number', ' Tuần @x.Tuan');</text>
+                <text>data.addColumn({ role: 'annotation' } );</text>
+                }
+                data.addRows([
+                ["Tổng cấp", @foreach (var e in listpht){<text> @e.TongHT,'@e.TongHT',</text>}],
+
+                ]);
+
+                var options = {
+                    width: 1000,
+                    vAxis: { minValue: 0 }
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('nhaphs'));
+                chart.draw(data, options);
+            };
+
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+                google.charts.load("current", { packages: ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Loại');
+                    @foreach (var x in listpht)
+                    {
+                    <text>data.addColumn('number',' Tuần @x.Tuan');</text>
+                          <text>data.addColumn( { role: 'annotation' } );</text>
+                    }
+                    data.addRows([
+                    ["GD cao nhất", @foreach (var e in listpht){<text> @e.CBCNHT,'@e.CBCNHT',</text>}],
+                    ["GD thấp nhất", @foreach (var e in listpht){<text> @e.CBTNHT,'@e.CBTNHT',</text>}],
+                    ["Thuế", @foreach (var e in listpht){<text> @e.ThueHT,'@e.ThueHT',</text>}],
+                    ["Hóa đơn", @foreach (var e in listpht){<text> @e.HoaDonHT,'@e.HoaDonHT',</text>}],
+                    ["Co-van", @foreach (var e in listpht){<text> @e.Co_VanHT,'@e.Co_VanHT',</text>}],
+                    ["Hải quan", @foreach (var e in listpht){<text> @e.HaiQuanHT,'@e.HaiQuanHT',</text>}],
+                    ["EBH", @foreach (var e in listpht){<text> @e.EBHHT,'@e.EBHHT',</text>}],
+                    ["Giao dịch khác", @foreach (var e in listpht){<text> @e.GDKHT,'@e.GDKHT',</text>}]
+
+                    ]);
+
+
+                    var options = {
+                       
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                    chart.draw(data, options);
+                }
+        </script>
+    }
+
+    <div class="card">
+        <div class="card-header chart-grid__header">
+            Tổng cấp 
+        </div>
+        <div class="card-body">
+            <!-- bar chart -->
+            <div class="col-md-6 offset-2"> <div id="nhaphs" style=" height:500px;"></div></div>
+
+
+            <!-- //bar chart -->
+        </div>
+
+    </div>
+    <div class="card">
+        <div class="card-header chart-grid__header">
+            Chi tiết cấp
+        </div>
+        <div class="card-body">
+            <!-- bar chart -->
+            <div class="col-md-12">     <div id="columnchart_values" style="height:500px"></div></div>
+
+
+            <!-- //bar chart -->
+        </div>
+
+    </div>
+
+}
+
+
+
+

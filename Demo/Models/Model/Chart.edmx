@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ChartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChiTietDanhMuc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tuan" Type="int" />
+          <Property Name="TongCapCTS" Type="int" />
+          <Property Name="TuNgay" Type="datetime" />
+          <Property Name="DenNgay" Type="datetime" />
+          <Property Name="CapMoi" Type="int" />
+          <Property Name="GiaHan" Type="int" />
+          <Property Name="CapLai" Type="int" />
+          <Property Name="ThuHoi" Type="int" />
+          <Property Name="CapBu" Type="int" />
+          <Property Name="CapLoi" Type="int" />
+          <Property Name="NgoaiGiao" Type="int" />
+          <Property Name="DungThu" Type="int" />
+          <Property Name="MoKhoa" Type="int" />
+          <Property Name="KhoiPhuc" Type="int" />
+          <Property Name="TamDung" Type="int" />
+          <Property Name="KDHN" Type="int" />
+          <Property Name="CNTPCM" Type="int" />
+          <Property Name="KDTPHCM" Type="int" />
+          <Property Name="E-Invoice" Type="int" />
+          <Property Name="KDHNeinvoice" Type="int" />
+          <Property Name="NhomHDeinvoice" Type="int" />
+          <Property Name="TPHCM" Type="int" />
+          <Property Name="Co-van" Type="int" />
+          <Property Name="EBH" Type="int" />
+          <Property Name="NhapHS" Type="int" />
+          <Property Name="CPN" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DoanhThuHN" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DoanhThuCNHCM" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CongNoHN" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CongNoCNHCM" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CBCNHT" Type="int" />
+          <Property Name="CBTNHT" Type="int" />
+          <Property Name="ThueHT" Type="int" />
+          <Property Name="HoaDonHT" Type="int" />
+          <Property Name="Co-VanHT" Type="int" />
+          <Property Name="HaiQuanHT" Type="int" />
+          <Property Name="EBHHT" Type="int" />
+          <Property Name="GDKHT" Type="int" />
+          <Property Name="KTTTTD" Type="int" />
+          <Property Name="TongHT" Type="int" />
+          <Property Name="NhomCO" Type="int" />
+          <Property Name="NhomHD" Type="int" />
+          <Property Name="Ngaytao" Type="datetime" />
+          <Property Name="CKSDoiSoat" Type="int" />
+          <Property Name="E-invoiceDoiSoat" Type="int" />
+          <Property Name="EBHDoiSoat" Type="int" />
+          <Property Name="Co-vanDoiSoat" Type="int" />
+          <Property Name="MoKhoaDoiSoat" Type="int" />
+          <Property Name="CKSHeThong" Type="int" />
+          <Property Name="E-invoiceHeThong" Type="int" />
+          <Property Name="Co-vanHeThong" Type="int" />
+          <Property Name="MoKhoaHeThong" Type="int" />
+          <Property Name="EBHHeThong" Type="int" />
+        </EntityType>
+        <EntityContainer Name="ChartModelStoreContainer">
+          <EntitySet Name="ChiTietDanhMuc" EntityType="Self.ChiTietDanhMuc" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChiTietDanhMuc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tuan" Type="Int32" />
+          <Property Name="TongCapCTS" Type="Int32" />
+          <Property Name="TuNgay" Type="DateTime" Precision="3" />
+          <Property Name="DenNgay" Type="DateTime" Precision="3" />
+          <Property Name="CapMoi" Type="Int32" />
+          <Property Name="GiaHan" Type="Int32" />
+          <Property Name="CapLai" Type="Int32" />
+          <Property Name="ThuHoi" Type="Int32" />
+          <Property Name="CapBu" Type="Int32" />
+          <Property Name="CapLoi" Type="Int32" />
+          <Property Name="NgoaiGiao" Type="Int32" />
+          <Property Name="DungThu" Type="Int32" />
+          <Property Name="MoKhoa" Type="Int32" />
+          <Property Name="KhoiPhuc" Type="Int32" />
+          <Property Name="TamDung" Type="Int32" />
+          <Property Name="KDHN" Type="Int32" />
+          <Property Name="CNTPCM" Type="Int32" />
+          <Property Name="KDTPHCM" Type="Int32" />
+          <Property Name="E_Invoice" Type="Int32" />
+          <Property Name="KDHNeinvoice" Type="Int32" />
+          <Property Name="NhomHDeinvoice" Type="Int32" />
+          <Property Name="TPHCM" Type="Int32" />
+          <Property Name="Co_van" Type="Int32" />
+          <Property Name="EBH" Type="Int32" />
+          <Property Name="NhapHS" Type="Int32" />
+          <Property Name="CPN" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DoanhThuHN" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DoanhThuCNHCM" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CongNoHN" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CongNoCNHCM" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CBCNHT" Type="Int32" />
+          <Property Name="CBTNHT" Type="Int32" />
+          <Property Name="ThueHT" Type="Int32" />
+          <Property Name="HoaDonHT" Type="Int32" />
+          <Property Name="Co_VanHT" Type="Int32" />
+          <Property Name="HaiQuanHT" Type="Int32" />
+          <Property Name="EBHHT" Type="Int32" />
+          <Property Name="GDKHT" Type="Int32" />
+          <Property Name="KTTTTD" Type="Int32" />
+          <Property Name="TongHT" Type="Int32" />
+          <Property Name="NhomCO" Type="Int32" />
+          <Property Name="NhomHD" Type="Int32" />
+          <Property Name="Ngaytao" Type="DateTime" Precision="3" />
+          <Property Name="CKSDoiSoat" Type="Int32" />
+          <Property Name="E_invoiceDoiSoat" Type="Int32" />
+          <Property Name="EBHDoiSoat" Type="Int32" />
+          <Property Name="Co_vanDoiSoat" Type="Int32" />
+          <Property Name="MoKhoaDoiSoat" Type="Int32" />
+          <Property Name="CKSHeThong" Type="Int32" />
+          <Property Name="E_invoiceHeThong" Type="Int32" />
+          <Property Name="Co_vanHeThong" Type="Int32" />
+          <Property Name="MoKhoaHeThong" Type="Int32" />
+          <Property Name="EBHHeThong" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ChartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChiTietDanhMuc" EntityType="Self.ChiTietDanhMuc" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChartModelStoreContainer" CdmEntityContainer="ChartEntities">
+          <EntitySetMapping Name="ChiTietDanhMuc">
+            <EntityTypeMapping TypeName="ChartModel.ChiTietDanhMuc">
+              <MappingFragment StoreEntitySet="ChiTietDanhMuc">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Tuan" ColumnName="Tuan" />
+                <ScalarProperty Name="TongCapCTS" ColumnName="TongCapCTS" />
+                <ScalarProperty Name="TuNgay" ColumnName="TuNgay" />
+                <ScalarProperty Name="DenNgay" ColumnName="DenNgay" />
+                <ScalarProperty Name="CapMoi" ColumnName="CapMoi" />
+                <ScalarProperty Name="GiaHan" ColumnName="GiaHan" />
+                <ScalarProperty Name="CapLai" ColumnName="CapLai" />
+                <ScalarProperty Name="ThuHoi" ColumnName="ThuHoi" />
+                <ScalarProperty Name="CapBu" ColumnName="CapBu" />
+                <ScalarProperty Name="CapLoi" ColumnName="CapLoi" />
+                <ScalarProperty Name="NgoaiGiao" ColumnName="NgoaiGiao" />
+                <ScalarProperty Name="DungThu" ColumnName="DungThu" />
+                <ScalarProperty Name="MoKhoa" ColumnName="MoKhoa" />
+                <ScalarProperty Name="KhoiPhuc" ColumnName="KhoiPhuc" />
+                <ScalarProperty Name="TamDung" ColumnName="TamDung" />
+                <ScalarProperty Name="KDHN" ColumnName="KDHN" />
+                <ScalarProperty Name="CNTPCM" ColumnName="CNTPCM" />
+                <ScalarProperty Name="KDTPHCM" ColumnName="KDTPHCM" />
+                <ScalarProperty Name="E_Invoice" ColumnName="E-Invoice" />
+                <ScalarProperty Name="KDHNeinvoice" ColumnName="KDHNeinvoice" />
+                <ScalarProperty Name="NhomHDeinvoice" ColumnName="NhomHDeinvoice" />
+                <ScalarProperty Name="TPHCM" ColumnName="TPHCM" />
+                <ScalarProperty Name="Co_van" ColumnName="Co-van" />
+                <ScalarProperty Name="EBH" ColumnName="EBH" />
+                <ScalarProperty Name="NhapHS" ColumnName="NhapHS" />
+                <ScalarProperty Name="CPN" ColumnName="CPN" />
+                <ScalarProperty Name="DoanhThuHN" ColumnName="DoanhThuHN" />
+                <ScalarProperty Name="DoanhThuCNHCM" ColumnName="DoanhThuCNHCM" />
+                <ScalarProperty Name="CongNoHN" ColumnName="CongNoHN" />
+                <ScalarProperty Name="CongNoCNHCM" ColumnName="CongNoCNHCM" />
+                <ScalarProperty Name="CBCNHT" ColumnName="CBCNHT" />
+                <ScalarProperty Name="CBTNHT" ColumnName="CBTNHT" />
+                <ScalarProperty Name="ThueHT" ColumnName="ThueHT" />
+                <ScalarProperty Name="HoaDonHT" ColumnName="HoaDonHT" />
+                <ScalarProperty Name="Co_VanHT" ColumnName="Co-VanHT" />
+                <ScalarProperty Name="HaiQuanHT" ColumnName="HaiQuanHT" />
+                <ScalarProperty Name="EBHHT" ColumnName="EBHHT" />
+                <ScalarProperty Name="GDKHT" ColumnName="GDKHT" />
+                <ScalarProperty Name="KTTTTD" ColumnName="KTTTTD" />
+                <ScalarProperty Name="TongHT" ColumnName="TongHT" />
+                <ScalarProperty Name="NhomCO" ColumnName="NhomCO" />
+                <ScalarProperty Name="NhomHD" ColumnName="NhomHD" />
+                <ScalarProperty Name="Ngaytao" ColumnName="Ngaytao" />
+                <ScalarProperty Name="CKSDoiSoat" ColumnName="CKSDoiSoat" />
+                <ScalarProperty Name="E_invoiceDoiSoat" ColumnName="E-invoiceDoiSoat" />
+                <ScalarProperty Name="EBHDoiSoat" ColumnName="EBHDoiSoat" />
+                <ScalarProperty Name="Co_vanDoiSoat" ColumnName="Co-vanDoiSoat" />
+                <ScalarProperty Name="MoKhoaDoiSoat" ColumnName="MoKhoaDoiSoat" />
+                <ScalarProperty Name="CKSHeThong" ColumnName="CKSHeThong" />
+                <ScalarProperty Name="E_invoiceHeThong" ColumnName="E-invoiceHeThong" />
+                <ScalarProperty Name="Co_vanHeThong" ColumnName="Co-vanHeThong" />
+                <ScalarProperty Name="MoKhoaHeThong" ColumnName="MoKhoaHeThong" />
+                <ScalarProperty Name="EBHHeThong" ColumnName="EBHHeThong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
